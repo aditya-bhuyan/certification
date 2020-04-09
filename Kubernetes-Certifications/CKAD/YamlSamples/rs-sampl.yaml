@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      id: calc
+  template:
+    # from here down its the pod template
+    metadata:
+      name: pod-calc
+      labels:
+        id: calc
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - echo "important calculation"; sleep 1d
+        image: nginx
+        name: pod-calc
+        envFrom:
+        - secretRef:
+            name: mysecret
