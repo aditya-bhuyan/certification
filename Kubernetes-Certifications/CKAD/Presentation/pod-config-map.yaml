@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mycm1
+data:
+  country: India
+  capital: New Delhi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mycm2
+data:
+  name: aditya
+  middleName: pratap
+  lastName: bhuyan
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        command: [ "/bin/sh", "-c", "env" ]
+        envFrom:
+        - configMapRef:
+           name: mycm1
+        env:
+         - name: myname
+           valueFrom:
+            configMapKeyRef:
+               name: mycm2
+               key: name 
