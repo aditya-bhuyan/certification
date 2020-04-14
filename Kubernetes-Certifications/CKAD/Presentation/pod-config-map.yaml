@@ -34,6 +34,10 @@ spec:
       containers:
       - image: nginx
         name: nginx
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo hello;date; sleep 10;done"]
+        ports:
+        - containerPort: 5000
         envFrom:
         - configMapRef:
            name: mycm1
@@ -42,4 +46,4 @@ spec:
            valueFrom:
             configMapKeyRef:
                name: mycm2
-               key: name 
+               key: name
