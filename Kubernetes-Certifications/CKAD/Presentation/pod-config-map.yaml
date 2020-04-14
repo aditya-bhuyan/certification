@@ -34,7 +34,6 @@ spec:
       containers:
       - image: nginx
         name: nginx
-        command: [ "/bin/sh", "-c", "env" ]
         envFrom:
         - configMapRef:
            name: mycm1
