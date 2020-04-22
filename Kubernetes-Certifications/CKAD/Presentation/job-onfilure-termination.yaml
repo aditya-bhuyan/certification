@@ -4,6 +4,9 @@ metadata:
   creationTimestamp: null
   name: myrun
 spec:
+  activeDeadlineSeconds: 55
+  completions: 5
+  parallelism: 2
   template:
     metadata:
       creationTimestamp: null
@@ -16,5 +19,5 @@ spec:
         image: busybox
         name: myrun
         resources: {}
-      restartPolicy: Never
+      restartPolicy: OnFailure
 status: {}
